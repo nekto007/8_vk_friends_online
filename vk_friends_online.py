@@ -34,8 +34,7 @@ def get_online_friends(
         friends_online = (api.users.get(user_ids=friends_online_ids))
         return friends_online
     except vk.exceptions.VkAuthError:
-        print('Логин или пароль некорректные, запустите скрипт заново')
-        sys.exit(0)
+        return None
 
 
 def output_friends_to_console(friends_online):
@@ -50,4 +49,7 @@ if __name__ == '__main__':
     login = get_user_login()
     password = get_user_password()
     friends_online = get_online_friends(login, password)
-    output_friends_to_console(friends_online)
+    if friends_online is not None:
+        output_friends_to_console(friends_online)
+    else:
+        print('Логин или пароль некорректные')
